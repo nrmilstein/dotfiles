@@ -1,0 +1,34 @@
+[user]
+	name = Neal Milstein
+	email = neal.milstein@gmail.com
+[merge]
+	tool = vimdiff
+[color]
+	ui = true
+[color "diff"]
+  meta = yellow
+[alias]
+  h = help
+  s = status
+  co = checkout
+  sw = switch
+  ci = commit
+  cl = clone
+  b = branch
+  pl = pull
+  ps = push
+  d = diff
+  a = add
+  st = stash
+  rs = reset HEAD
+  l = log --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(cyan)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit
+  oops = !"git add -A -v && git commit --amend --no-edit"
+[push]
+	default = current
+[core]
+  #pager = less -SRi
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -SRi
+[pager]
+	branch = false
+[diff]
+  mnemonicprefix = true
