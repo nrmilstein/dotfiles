@@ -1,12 +1,6 @@
 [user]
 	name = Neal Milstein
 	email = neal.milstein@gmail.com
-[merge]
-	tool = vimdiff
-[color]
-	ui = true
-[color "diff"]
-  meta = yellow
 [alias]
   h = help
   s = status
@@ -25,10 +19,56 @@
   oops = !"git add -A -v && git commit --amend --no-edit"
 [push]
 	default = current
+[merge]
+	tool = nvimdiff
+[diff]
+  tool = nvimdiff
+  ;colorMoved = default
+  mnemonicprefix = true
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[color]
+	ui = true
+[color "diff"]
+  meta = magenta
 [core]
-  #pager = less -SRi
-  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -SRi
+  ;pager = less -SRi
+  ;pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less -SRi
+  pager = delta
 [pager]
 	branch = false
-[diff]
-  mnemonicprefix = true
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  side-by-side = true
+  line-numbers = true
+  navigate = true
+  syntax-theme = TwoDark
+  features = calochortus-lyallii-modified
+[delta "calochortus-lyallii-modified"]
+    # author: https://github.com/manojkarthick
+    commit-decoration-style = overline
+    dark = true
+    file-added-label = [+]
+    file-copied-label = [C]
+    file-decoration-style = box
+    file-modified-label = [M]
+    file-removed-label = [-]
+    file-renamed-label = [R]
+    file-style = "#13a9e8 bold"
+    hunk-header-decoration-style = none
+    hunk-header-file-style = "#999999"
+    hunk-header-line-number-style = bold "#03a4ff"
+    hunk-header-style = line-number syntax
+    line-numbers = true
+    line-numbers-left-style = black
+    ;line-numbers-minus-style = "#B10036"
+    ;line-numbers-plus-style = "#03a4ff"
+    line-numbers-right-style = black
+    line-numbers-zero-style = "#777777"
+    minus-emph-style = syntax bold "#780000"
+    minus-style = syntax "#400000"
+    plus-emph-style = syntax bold "#007800"
+    plus-style = syntax "#004000"
+    whitespace-error-style = "#280050" reverse
+    zero-style = syntax
