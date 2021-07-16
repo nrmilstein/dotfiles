@@ -55,6 +55,7 @@ alias o="open"
 alias g='git'
 alias gs='git status'
 alias vip="nvim -p" # open files in vim tabs
+alias amp="amplify"
 
 # shortcuts
 alias flush="dscacheutil -flushcache" # needed sometimes after updating hosts file
@@ -65,9 +66,10 @@ alias vim='nvim '
 alias vimdiff='nvim -d '
 alias 'gdb'='gdb -silent'
 alias tree='tree -a'
-alias cat='bat --paging=never --style=numbers' # use `bat` instead of `cat`
+alias cat='bat --paging=never --style=numbers --theme TwoDark' # use `bat` instead of `cat`
 alias fd='fd --hidden --exclude ".git/"' # search hidden files with `fd`, exclude .git
 alias http='http --style monokai '
+alias https='https --style monokai '
 
 # python aliases. Always use python 3
 alias python="python3"
