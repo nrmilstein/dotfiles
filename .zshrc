@@ -108,8 +108,8 @@ unsetopt case_glob
 bindkey \^U backward-kill-line
 
 # make ctrl-p behave the same as up-arrow
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
 
 # prevent zsh from eating the space before a pipe
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;&'
