@@ -56,6 +56,7 @@ alias g='git'
 alias gs='git status'
 alias vip="nvim -p" # open files in vim tabs
 alias amp="amplify"
+alias tf="terraform"
 
 # shortcuts
 alias flush="dscacheutil -flushcache" # needed sometimes after updating hosts file
