@@ -143,6 +143,14 @@ function fzfp {
   [[ ! -z $file ]] && nvim $file
 }
 
+# Git checkout branch with fzf
+gch() {
+  local branches branch
+  branches=$(git --no-pager branch -vv) &&
+  branch=$(echo "$branches" | command fzf --height 60% --reverse +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
 
 # set ANDROID_HOME and add it to the path for Android SDK dev
 export ANDROID_HOME=${HOME}/Library/Android/sdk
