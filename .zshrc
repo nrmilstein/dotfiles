@@ -28,11 +28,11 @@ export EDITOR="$VISUAL"
 # exa configuration
 export EXA_COLORS=$LS_COLORS
 alias ls='exa -a'
-alias l='exa --icons --git -la'
+alias l='exa --git -la'
 alias le='exa -a --sort=extension'
-alias lle='exa --icons --git -la --sort=extension'
+alias lle='exa --git -la --sort=extension'
 alias lda='exa -a --sort=date'
-alias llda='exa --icons --git -la --sort=date'
+alias llda='exa --git -la --sort=date'
 alias lr='exa -aR'
 alias lt='exa -aT'
 alias sl='ls '
