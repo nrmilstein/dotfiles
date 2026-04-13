@@ -1,6 +1,6 @@
 # Plugins for oh-my-zsh to use
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(fancy-ctrl-z safe-paste jsontools zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(fancy-ctrl-z safe-paste jsontools zsh-syntax-highlighting zsh-autosuggestions zsh-z)
 
 # load oh-my-zsh
 source ~/.zshsetup
@@ -8,15 +8,12 @@ source ~/.zshsetup
 # set ls colors for MacOS `ls` utility (only change from default is yellow directories)
 export LSCOLORS=dxfxcxdxbxegedabagacad 
 #
-# set custom colors for `exa` (our preferred `ls` utility), `tree`, etc.
+# set custom colors for `eza` (our preferred `ls` utility), `tree`, etc.
 #export LS_COLORS='di=38;5;69:ln=35:so=32:ex=31:sn=38;5;97:sb=38;5;240:uu=38;5;240:un=38;5;237:da=38;5;245'
 source ~/.zsh_lscolors
 
 # make zsh like vim
 #source ~/.zshvim
-
-# load z directory utility
-. `brew --prefix`/etc/profile.d/z.sh
 
 # use colors in less
 export LESS=-Ri
@@ -25,19 +22,19 @@ export LESS=-Ri
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# exa configuration
-export EXA_COLORS=$LS_COLORS
-alias ls='exa -a'
-alias l='exa --git -la'
-alias le='exa -a --sort=extension'
-alias lle='exa --git -la --sort=extension'
-alias lda='exa -a --sort=date'
-alias llda='exa --git -la --sort=date'
-alias lr='exa -aR'
-alias lt='exa -aT'
+# eza configuration
+export eza_COLORS=$LS_COLORS
+alias ls='eza -a'
+alias l='eza --git -la'
+alias le='eza -a --sort=extension'
+alias lle='eza --git -la --sort=extension'
+alias lda='eza -a --sort=date'
+alias llda='eza --git -la --sort=date'
+alias lr='eza -aR'
+alias lt='eza -aT'
 alias sl='ls '
 
-# ls aliases (no longer used, exa used instead)
+# ls aliases (no longer used, eza used instead)
 #alias ls='ls -AG'
 #alias l='ls -lAh'
 #alias ll='ls -lAh'
@@ -49,14 +46,36 @@ alias s="sudo "
 alias sudo="sudo " # space on end makes sudo expand aliases
 alias v="nvim"
 alias sv="sudo nvim"
-alias m="mate"
 alias x="exit"
 alias o="open"
+alias vip="nvim -p" # open files in vim tabs
+alias dk="docker"
+alias dkc="docker compose"
+alias dku="docker compose up"
+alias dkd="docker compose down"
+alias lzd="lazydocker"
+alias tf="terraform"
+alias kc="kubectl"
+alias cur="cursor"
+alias c="code"
+
+# git aliases
 alias g='git'
 alias gs='git status'
-alias vip="nvim -p" # open files in vim tabs
-alias amp="amplify"
-alias tf="terraform"
+alias gd='git diff'
+alias gl='git l'
+alias gla='git la'
+alias glp='git p'
+alias gco='git co'
+alias gci='git ci'
+alias ga='git add'
+alias gaa='git add -A'
+alias gfa='git fetch --all'
+alias gps='git push'
+alias gpl='git pull'
+alias gre='git rebase'
+alias gpr='gh pr create --web'
+alias gpv='gh pr view --web'
 
 # shortcuts
 alias flush="dscacheutil -flushcache" # needed sometimes after updating hosts file
@@ -132,7 +151,7 @@ sman() {
 }
 #
 # Launch fzf, open the selected file in vim
-function fzf {
+function fzfv {
   file=$(command fzf --height 60% --reverse "$@")
   [[ ! -z $file ]] && nvim $file
 }
@@ -151,6 +170,18 @@ gch() {
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
 }
 
+# Pipe every line through jq
+jqm() {
+  while read -r line; do echo "$line" | jq; done
+}
+
+# Convenience function for deleting target-bucket in PayOne's local-spark-cluster
+dtb() {
+  rm -r local-spark-cluster/data/target-bucket
+}
+
+#Load Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # set ANDROID_HOME and add it to the path for Android SDK dev
 export ANDROID_HOME=${HOME}/Library/Android/sdk
@@ -158,7 +189,8 @@ export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 # add cargo (Rust's package manager) to path
-export PATH=$PATH:~/.cargo/bin
+#export PATH=$PATH:~/.cargo/bin
+. "$HOME/.cargo/env"
 
 # add CUDA to the path
 export PATH=$PATH:/usr/local/cuda/bin
@@ -174,7 +206,18 @@ export PATH=$PATH:$(python -m site --user-base)/bin
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # init rbenv
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
 
 # Set default command for `fzf`
 export FZF_DEFAULT_COMMAND=fd
+
+# Add fzf shell fuzzy completions and key bindings
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# init sdkman
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# init iterm shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

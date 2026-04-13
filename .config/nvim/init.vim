@@ -72,7 +72,7 @@ set nohlsearch
 nnoremap <silent> <C-n> :set nohlsearch!<CR>
 
 " NERD Commenter settings
-noremap <silent> <c-c> :call NERDComment('n', "toggle")<CR>
+noremap <silent> <c-c> :call nerdcommenter#Comment('n', "toggle")<CR>
 
 " NERDTree settings
 let NERDTreeShowHidden=1

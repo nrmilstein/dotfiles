@@ -1,2 +1,7 @@
 .DS_Store
 Session.vim
+.idea
+.metals
+.attach_pid*
+
+**/.claude/settings.local.json

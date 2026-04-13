@@ -9,22 +9,32 @@
   ci = commit
   cl = clone
   b = branch
+  fa = fetch --all
   pl = pull
   ps = push
+  re = rebase
   d = diff
   a = add
+  aa = add -A
   st = stash
   rs = reset HEAD
   l = log --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(cyan)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit
-  oops = !"git add -A -v && git commit --amend --no-edit"
+  la = log --all --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(cyan)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit
+  lb = log --branches --color --graph --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(cyan)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit
+  p = log --color --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(cyan)<%an>%Creset%C(yellow)%d%Creset' --abbrev-commit --patch
+  rpo = remote prune origin
+  wip = ci -m "chore: wip"
+	set-upstream = !git branch --set-upstream-to=origin/$(git branch --show-current)
 [push]
-	default = current
+  default = current
 [merge]
-	tool = nvimdiff
+  tool = nvimdiff
+  conflictStyle = zdiff3
 [diff]
   tool = nvimdiff
   ;colorMoved = default
   mnemonicprefix = true
+	algorithm = histogram
 [difftool "nvimdiff"]
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [color]
@@ -39,6 +49,8 @@
 	branch = false
 [interactive]
   diffFilter = delta --color-only
+[add.interactive]
+  useBuiltin = false
 [delta]
   side-by-side = true
   line-numbers = true
@@ -51,7 +63,7 @@
     dark = true
     file-added-label = [+]
     file-copied-label = [C]
-    file-decoration-style = box
+    file-decoration-style = none
     file-modified-label = [M]
     file-removed-label = [-]
     file-renamed-label = [R]
@@ -72,3 +84,12 @@
     plus-style = syntax "#004000"
     whitespace-error-style = "#280050" reverse
     zero-style = syntax
+[includeIf "gitdir:~/hivemind/payone/"]
+    path = ~/hivemind/payone/.gitconfig
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[advice]
+	skippedCherryPicks = false
